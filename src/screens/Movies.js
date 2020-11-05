@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -15,12 +15,12 @@ import {
 // import * as MoviesActions from '../store/actionCreators';
 import { DATA } from '../../movie-list';
 
-const Movies = () => {
+const Movies = (props) => {
 
   // const {moviesActions} = props;
 
   // useEffect(() => {
-  //   moviesActions.fetchMovies()
+  //   moviesActions.setMovies(DATA)
 	// }, []);
 
 
