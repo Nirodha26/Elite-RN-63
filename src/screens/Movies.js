@@ -11,20 +11,15 @@ import {
   Linking,
 } from 'react-native';
 import { DATA } from '../../movie-list';
-import store from '../store/';
-import {setMovies} from '../store/actionCreators'
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as MoviesActions from '../store/actionCreators';
 
-const Movies = (props) => {
+const Movies = () => {
+
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    store.dispatch(setMovies(DATA))
+    setMovies(DATA)
 	}, []);
 
-
-  const {movies} = props;
   
   return (
     <SafeAreaView>
@@ -166,16 +161,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({
-  movies: state.movies,
-});
 
-const mapDispatchToProps = dispatch => ({
-  moviesActions: bindActionCreators(MoviesActions, dispatch),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Movies);
+export default Movies
 
