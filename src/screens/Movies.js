@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,10 +10,22 @@ import {
   ScrollView,
   Linking,
 } from 'react-native';
-import { DATA } from './movie-list';
+import { DATA } from '../../movie-list';
+import store from '../store/';
+import {setMovies} from '../store/actionCreators'
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as MoviesActions from '../store/actionCreators';
 
-const App: () => React$Node = () => {
+const Movies = (props) => {
 
+  useEffect(() => {
+    store.dispatch(setMovies(DATA))
+	}, []);
+
+
+  const {movies} = props;
+  
   return (
     <SafeAreaView>
       <ScrollView>
@@ -23,7 +35,7 @@ const App: () => React$Node = () => {
           </View>
           <View style={styles.bodyContainer}>
             <FlatList
-              data={DATA}
+              data={movies}
               renderItem={renderItem}
               keyExtractor={item => item.id}
             />
@@ -154,4 +166,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+const mapStateToProps = state => ({
+  movies: state.movies,
+});
+
+const mapDispatchToProps = dispatch => ({
+  moviesActions: bindActionCreators(MoviesActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Movies);
+
