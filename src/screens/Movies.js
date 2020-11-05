@@ -16,6 +16,7 @@ const Movies = () => {
 
   const [movies, setMovies] = useState([]);
 
+  // Will be called when component is mounted
   useEffect(() => {
     setMovies(DATA)
 	}, []);
