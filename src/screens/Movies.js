@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,22 +9,22 @@ import {
   SafeAreaView,
   ScrollView,
   Linking,
+  ActivityIndicator
 } from 'react-native';
-import { DATA } from '../../movie-list';
-import store from '../store/';
-import {setMovies} from '../store/actionCreators'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as MoviesActions from '../store/actionCreators';
 
 const Movies = (props) => {
 
+  const {moviesActions} = props;
+
   useEffect(() => {
-    store.dispatch(setMovies(DATA))
+    moviesActions.fetchMovies()
 	}, []);
 
 
-  const {movies} = props;
+  const {movies, isLoading} = props;
   
   return (
     <SafeAreaView>
@@ -34,6 +34,7 @@ const Movies = (props) => {
             <Text style={styles.homePageTitle}>Movies</Text>
           </View>
           <View style={styles.bodyContainer}>
+            {renderLoading(isLoading)}
             <FlatList
               data={movies}
               renderItem={renderItem}
@@ -45,6 +46,12 @@ const Movies = (props) => {
     </SafeAreaView>
   );
 };
+
+const renderLoading = (isLoading) => {
+  if(isLoading){
+    return  <ActivityIndicator size="large" color={'#808080'} />
+  }
+}
 
 // Single list item template
 const renderItem = ({ item }) => (
@@ -120,6 +127,7 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 9,
+    paddingTop: 10
   },
   movieName: {
     fontSize: 16,
@@ -168,6 +176,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   movies: state.movies,
+  isLoading: state.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
