@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,17 +10,16 @@ import {
   ScrollView,
   Linking,
 } from 'react-native';
-import { DATA } from '../../movie-list';
-import store from '../store/';
-import {setMovies} from '../store/actionCreators'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as MoviesActions from '../store/actionCreators';
 
 const Movies = (props) => {
 
+  const {moviesActions} = props;
+
   useEffect(() => {
-    store.dispatch(setMovies(DATA))
+    moviesActions.fetchMovies()
 	}, []);
 
 
