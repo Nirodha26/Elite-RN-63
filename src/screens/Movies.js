@@ -14,13 +14,14 @@ import {
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as MoviesActions from '../store/actionCreators';
+import { DATA } from '../../movie-list'
 
 const Movies = (props) => {
 
   const {moviesActions} = props;
 
   useEffect(() => {
-    moviesActions.fetchMovies()
+    moviesActions.setMovies(DATA)
 	}, []);
 
 
