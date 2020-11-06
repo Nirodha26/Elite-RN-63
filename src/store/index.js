@@ -13,6 +13,7 @@ import moviesReducer from './reducer';
 //     return next(action)
 //   }
 
+// Create a store enhanser to the dispatch method of the Redux store
 // const middlewareEnhancer = applyMiddleware(asyncFunctionMiddleware)
 
 export default store = createStore(moviesReducer)
