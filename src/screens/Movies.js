@@ -10,21 +10,21 @@ import {
   ScrollView,
   Linking,
 } from 'react-native';
-// import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
-// import * as MoviesActions from '../store/actionCreators';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as MoviesActions from '../store/actionCreators';
 import { DATA } from '../../movie-list';
 
 const Movies = (props) => {
 
-  // const {moviesActions} = props;
+  const {moviesActions} = props;
 
-  // useEffect(() => {
-  //   moviesActions.setMovies(DATA)
-	// }, []);
+  useEffect(() => {
+    moviesActions.setMovies(DATA)
+	}, []);
 
 
-  // const {movies} = props;
+  const {movies} = props;
   
   return (
     <SafeAreaView>
@@ -35,7 +35,7 @@ const Movies = (props) => {
           </View>
           <View style={styles.bodyContainer}>
             <FlatList
-              data={DATA}
+              data={movies}
               renderItem={renderItem}
               keyExtractor={item => item.id}
             />
@@ -166,18 +166,16 @@ const styles = StyleSheet.create({
   }
 });
 
-// const mapStateToProps = state => ({
-//   movies: state.movies,
-// });
+const mapStateToProps = state => ({
+  movies: state.movies,
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   moviesActions: bindActionCreators(MoviesActions, dispatch),
-// });
+const mapDispatchToProps = dispatch => ({
+  moviesActions: bindActionCreators(MoviesActions, dispatch),
+});
 
-export default Movies;
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(Movies);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Movies);
 
